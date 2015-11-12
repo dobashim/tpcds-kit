@@ -144,7 +144,7 @@ tdef *pT = getSimpleTdefsByNumber(STORE_SALES);
 	 * skip the returns since we can't send two tables to stdout at the same time
 	 * TODO: add logic to generate the returns tables to stdout on their own
 	 */	
-	if (!is_set("FILTER"))
+	if (!is_set("FILTER") || is_set("_CHILD_ONLY"))
 	{
     genrand_integer(&nTemp, DIST_UNIFORM, 0, 99, 0, SR_IS_RETURNED);
     if (nTemp < SR_RETURN_PCT)
@@ -154,7 +154,7 @@ tdef *pT = getSimpleTdefsByNumber(STORE_SALES);
         pr_w_store_returns(&ReturnRow);
     }  	
   }
-   if (bPrint)
+   if (bPrint && (!is_set("FILTER") || !is_set("_CHILD_ONLY")))
       pr_w_store_sales(NULL);
 	
 	return;
